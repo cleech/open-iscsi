@@ -2,14 +2,9 @@ language: c
 compiler: gcc
 os: linux
 dist: bionic
-
 env:
   global:
-  # This is an excrypted setting of COVERITY_SCAN_TOKEN=<token>
-  # Travis-CI has the private key to decrypt this and set the environment
-  # variable with the token needed for Coverity API access
-  - secure: kUIw3pil4akjNycH+R2mq8oUszQrt/TCwkQb20oBRXoqsRzYLF6I9VT5wdAERjPsD7BDSiWLxLnisYrdRAs/tQ9h3xvnOJQAX8wKvVF/B883kOwOdI17DkY/dKdzWT+LbojjaXCHZf2yaKVAjibRPO2E8J9zsvpuDLDlon7zD123Amnb/XrSVJH4jefscs1OXFVtaMIKNs7AQPoPK7V9oMZoIbBF5NhYSPpytlf5/VL6ePQlXdd4xAiQR+dg5PvEbMquJh4GvcTo5DzOAJN8L9nGvlGlH5YKxHo7tkOpKFRnCATyenbpVaUBTb/TzA9OsVmxfSr/WrzLLXQxCwfOG6ktZp+1+ANRuL5wLCtDJLooGCw4Wxsicgw69snBoFPWoPW8w4osNQAaGINZnPKM2WSFxq2DBrqHrccGk1lze7upNHikBrwSTgv+SklmZUfcDQjWYxC2owH21BHhVTV6hgNShwS5q9gwWtSWAHc4f34Qvn1gjdV2/791Skk/t4GgTSmt0j0ZVcfsQJaZBvDwkot1yDJ0u/3av+ElMAmCb/9wG3dSqUXv9/V6mAutNb243igIZko6Vmpcosp2bJKXyeVbRkgbMoIfH2VQf9n1sbb01+V9lZsk9usIZZYRcW9Bz6d2H+ooDrM/ha1kQjVqMDP2EyCdBKmQjr8iAi9E4yQ=
-
+  - secure: rm4qOWMcVcDIvbdENbm9/7jda8+jqHT/1sq4/bZQY+Otl/BsRDb967eo5gFIw4F007BPqSMp0R6EoA5Ok2RoZm4anjJ1PTvcGgyFNW94OfJirqLJe3JL1sLSFxuA54Wdu8xmO7SCJG4HXt84zp9B+OFTrSkzmELcQFnPWpZNP3E=
 addons:
   apt:
     update: true
@@ -23,11 +18,8 @@ addons:
     - bison
   coverity_scan:
     project:
-      name: open-iscsi/open-iscsi
-    notification_email: cleech@redhat.com
+      name: cleech/open-iscsi
+    notification_email: leech@pobox.com
     build_command: make
     branch_pattern: coverity_scan
-
-before_install: echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
-
 script: if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then make; fi
