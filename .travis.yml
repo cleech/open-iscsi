@@ -20,6 +20,12 @@ addons:
     project:
       name: cleech/open-iscsi
     notification_email: leech@pobox.com
+    build_command_prepend: "(dpkg-buildflags --export=sh) > env.sh && source env.sh"
     build_command: make
     branch_pattern: coverity_scan
-script: if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then make; fi
+script:
+- |
+  if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then
+    eval $(dpkg-buildflags --export=sh)
+    make
+  fi
